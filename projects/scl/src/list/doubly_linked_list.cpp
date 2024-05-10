@@ -54,7 +54,7 @@ void IBusko::DoublyLinkedList<T>::print() const noexcept{
 
 
 
-template<typename T>
+
 template<typename T>
 bool IBusko::DoublyLinkedList<T>::remove_first(const T& value) noexcept {
 
