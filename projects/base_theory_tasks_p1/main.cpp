@@ -21,7 +21,7 @@ int main() {
 
     {
         int i = 10;
-        if (i = 20) {
+        if (i == 20) {
             std::cout << i;
         }
     }

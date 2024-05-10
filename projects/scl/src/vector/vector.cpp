@@ -17,12 +17,19 @@ IBusko::Vector<T>::~Vector() noexcept{
 
 
 template <typename T>
-void IBusko::Vector<T>::push_back(const T& value) noexcept {
-    if (capacity == size) {
-        resize(2 * capacity);
-    }
-    arr[size] = value;
-    size++;
+void IBusko::Vector<T>::push_back(const T& value) noexcept{
+	if (capacity == size){
+		T* new_arr = new T[capacity * 2];
+		for (std::size_t i = 0; i < capacity; i++)
+        {
+			new_arr[i] = arr[i];
+		}
+		capacity *= 2;
+        delete[] arr;
+		arr = new_arr;
+	}
+	arr[size] = value;
+	size++;
 }
 
 template <typename T>
@@ -36,21 +43,25 @@ bool IBusko::Vector<T>::has_item(const T& value) const noexcept {
 }
 
 template <typename T>
-bool IBusko::Vector<T>::insert(const int position, const T& value) {
-    if (position > size || position < 0) {
-        throw std::out_of_range("Position out of bounds");
-    }
+bool IBusko::Vector<T>::insert(const int position, const T& value){
+	if (position > size) throw std::out_of_range("position out");
 
-    if (capacity == size) {
-        resize(2 * capacity);
-    }
-
-    shift_right(position);
-    arr[position] = value;
-    size++;
-    return true;
+	if (capacity == size){
+		T* new_arr = new T[2 * capacity];
+		for (std::size_t i = 0; i < capacity; i++){
+			new_arr[i] = arr[i];
+		}
+		arr = new_arr;
+        delete[] arr;
+		capacity = 2 * capacity;
+	}
+	for (std::size_t i = size; i > position; i--){
+		arr[i] = arr[i-1];
+	}
+	size += 1;
+	arr[position] = value;
+	return 1;
 }
-
 
 template <typename T>
 void IBusko::Vector<T>::print() const noexcept {
@@ -60,15 +71,24 @@ void IBusko::Vector<T>::print() const noexcept {
 }
 
 template <typename T>
-bool IBusko::Vector<T>::remove_first(const T& value) noexcept {
-    for (std::size_t i = 0; i < size; i++) {
-        if (arr[i] == value) {
-            shift_left(i);
-            size--;
-            return true;
-        }
-    }
-    return false;
+bool IBusko::Vector<T>::remove_first(const T& value) noexcept{
+	T* new_arr = new T[capacity - 1];
+
+	for (std::size_t i = 0; i < size; i++){
+		if (arr[i] == value){
+			for (std::size_t j = i; j < size-1; j++){
+				new_arr[j] = arr[j+1];
+			}
+			delete[] arr;
+			arr = new_arr;
+			capacity -= 1;
+			size -= 1;
+			return true;
+		}
+		new_arr[i] = arr[i];
+	}
+
+	return false;
 }
 
 template <typename T>

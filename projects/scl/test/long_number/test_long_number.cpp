@@ -34,8 +34,8 @@ TEST(constructor, default_) {
 
 class FConstructor : public testing::Test {
 	public:
-		LongNumber 
-			vn{"-1234567890"}, vd, vp{"1234567890"}, 
+		LongNumber
+			vn{"-1234567890"}, vd, vp{"1234567890"},
 			vp_copy{vp}, vp_move{std::move(LongNumber("1234567890"))};
 };
 
@@ -111,9 +111,9 @@ TEST(assignment, move) {
 
 class FComparisons : public testing::Test {
 	public:
-		LongNumber 
+		LongNumber
 			n_2{"-2"}, n_1{"-1"}, n_1_copy{"-1"},
-			
+
 			p_1{"1"}, p_1_copy{"1"}, p_12{"12"};
 };
 
@@ -151,23 +151,23 @@ TEST_F(FComparisons, less) {
 
 class FArithmetic : public testing::Test {
 	public:
-		LongNumber 
+		LongNumber
 			n_19602{"-19602"}, n_99{"-99"}, n_87{"-87"}, n_15{"-15"},
 			n_7{"-7"}, n_4{"-4"}, n_3{"-3"}, n_2{"-2"}, n_1{"-1"},
-		
+
 			p_0{"0"}, p_1{"1"}, p_1_copy{"1"}, p_2{"2"}, p_3{"3"},
-			p_4{"4"}, p_6{"6"}, p_12{"12"}, p_99{"99"}, p_99_copy{"99"}, 
+			p_4{"4"}, p_6{"6"}, p_12{"12"}, p_99{"99"}, p_99_copy{"99"},
 			p_113{"113"}, p_198{"198"}, p_1188{"1188"}, p_19602{"19602"},
-			
+
 			n_100{"-100"}, n_6{"-6"}, p_100{"100"}, p_{"6"};
 };
 
 TEST_F(FArithmetic, summ) {
 	EXPECT_EQ(p_2, p_1 + p_1_copy) << "1 + 1 = 2";
 	EXPECT_EQ(p_0, p_1 + n_1) << "1 + (-1) = 0";
-	EXPECT_EQ(p_198, p_99 + p_99_copy) << "99 + 99 = 198";	
-	EXPECT_EQ(n_87, n_99 + p_12) << "-99 + 12 = -87";	
-	EXPECT_EQ(n_87, p_12 + n_99) << "12 + (-99) = -87";	
+	EXPECT_EQ(p_198, p_99 + p_99_copy) << "99 + 99 = 198";
+	EXPECT_EQ(n_87, n_99 + p_12) << "-99 + 12 = -87";
+	EXPECT_EQ(n_87, p_12 + n_99) << "12 + (-99) = -87";
 }
 
 TEST_F(FArithmetic, substraction) {

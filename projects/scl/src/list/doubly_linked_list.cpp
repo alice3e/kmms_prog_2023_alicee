@@ -95,14 +95,17 @@ bool IBusko::DoublyLinkedList<T>::remove_first(const T& value) noexcept {
 
 
 template<typename T>
-std::size_t IBusko::DoublyLinkedList<T>::size() const noexcept {
+std::size_t IBusko::DoublyLinkedList<T>::size() const noexcept{
+	if (end == nullptr){
+		return 0;
+	}
 
-    std::function<std::size_t(Node*)> count_nodes = [&](Node* node) -> std::size_t {
-        if (node == nullptr) {
-            return 0;
-        }
-        return 1 + count_nodes(node->next);
-    };
+	std::size_t counter = 1; // While loop does not count end element
+	Node* element = begin;
+	while(element != end){
+		counter++;
+		element = element->next;
+	}
 
-    return count_nodes(begin);
+	return counter;
 }
